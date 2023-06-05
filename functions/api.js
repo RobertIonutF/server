@@ -27,7 +27,6 @@ mongoose
     console.error('Unable to connect to the database:', error);
   });
 
-app.use("./.netlify/functions/api/users", userRoutes);
-app.use("./.netlify/functions/api/transactions", transactionRoutes);
+app.use("./.netlify/functions/api", userRoutes, transactionRoutes);
 
 module.exports.handler = serverless(app);
