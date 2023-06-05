@@ -29,5 +29,5 @@ mongoose
     console.error('Unable to connect to the database:', error);
   });
 
-app.use('/.netlify/functions/api', router);  // path must route to lambda
+app.use('/.netlify/functions/index', router);  // path must route to lambda
 module.exports.handler = serverless(app);
