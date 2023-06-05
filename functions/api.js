@@ -28,8 +28,8 @@ mongoose
     console.error('Unable to connect to the database:', error);
   });
 
-router.use('/api/users', userRoutes);
-router.use('/api/transactions', transactionRoutes);
+router.use('/users', userRoutes);
+router.use('/transactions', transactionRoutes);
 
 app.use('/.netlify/functions/api', router);
 module.exports.handler = serverless(app);
