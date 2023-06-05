@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const app = express();
 const userRoutes = require('./routes/userRoutes');
 const transactionRoutes = require('./routes/transactionRoutes');
+const serverless = require('serverless-http');
 
 // Middleware
 app.use(express.json());
@@ -27,3 +28,6 @@ mongoose
   .catch((error) => {
     console.error('Unable to connect to the database:', error);
   });
+
+app.use('/.netlify/functions/api', router);  // path must route to lambda
+module.exports.handler = serverless(app);
