@@ -4,13 +4,14 @@ const app = express();
 const userRoutes = require('./routes/userRoutes');
 const transactionRoutes = require('./routes/transactionRoutes');
 const serverless = require('serverless-http');
+const router = express.Router();
 
 // Middleware
 app.use(express.json());
 
 // Routes
-app.use('/api/users', userRoutes);
-app.use('/api/transactions', transactionRoutes);
+app.use('./netlify/functions/api/users', userRoutes);
+app.use('./netlify/functions/api/transactions', transactionRoutes);
 
 // Database connection
 mongoose
@@ -21,13 +22,15 @@ mongoose
   .then(() => {
     console.log('Connected to the database');
     // Start the server
-    app.listen(3000, () => {
-      console.log('Server is running on port 3000');
-    });
+    if (process.env.NODE_ENV !== 'production') {
+      app.listen(3000, () => {
+        console.log('Server is running on port 3000');
+      });
+    }
   })
   .catch((error) => {
     console.error('Unable to connect to the database:', error);
   });
 
-app.use('/.netlify/functions/index', router);  // path must route to lambda
+// Lambda handler for serverless deployment
 module.exports.handler = serverless(app);
