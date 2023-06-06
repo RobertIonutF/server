@@ -3,8 +3,6 @@ const mongoose = require('mongoose');
 const app = express();
 const userRoutes = require('./routes/userRoutes');
 const transactionRoutes = require('./routes/transactionRoutes');
-const serverless = require('serverless-http');
-const router = express.Router();
 
 // Middleware
 app.use(express.json());
@@ -28,8 +26,8 @@ mongoose
     console.error('Unable to connect to the database:', error);
   });
 
-router.use('/users', userRoutes);
-router.use('/transactions', transactionRoutes);
+// Routes
+app.use('/api/users', userRoutes);
+app.use('/api/transactions', transactionRoutes);
 
-app.use('/.netlify/functions/api', router);
-module.exports.handler = serverless(app);
+module.exports = app;
