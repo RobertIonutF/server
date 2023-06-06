@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "api.js",
+  "engines": {
+    "node": "20.x",
+    "npm": "9.x"
+  },
   "scripts": {
     "start": "nodemon api.js",
     "build": "babel . -d dist --ignore node_modules"
